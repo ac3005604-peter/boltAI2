@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Download, BookOpen } from 'lucide-react';
+import { Download, BookOpen, AlertCircle } from 'lucide-react';
 import PDFViewer from '../components/PDFViewer';
 import { getActivePortfolios, Portfolio } from '../lib/api';
+import { isConfigured } from '../lib/supabase';
 
 export default function PortfolioPage() {
   const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
@@ -49,6 +50,16 @@ export default function PortfolioPage() {
           </div>
         </div>
       </div>
+
+      {!isConfigured && (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex items-start space-x-3">
+          <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+          <div className="text-yellow-800">
+            <p className="font-medium">Supabase未配置</p>
+            <p className="text-sm">請在Vercel環境變數中設置 VITE_SUPABASE_URL 和 VITE_SUPABASE_ANON_KEY</p>
+          </div>
+        </div>
+      )}
 
       {loading ? (
         <div className="flex items-center justify-center py-12">

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Download } from 'lucide-react';
+import { Download, AlertCircle } from 'lucide-react';
 import PDFViewer from '../components/PDFViewer';
 import { getActiveResume, Resume } from '../lib/api';
+import { isConfigured } from '../lib/supabase';
 
 export default function HomePage() {
   const [resume, setResume] = useState<Resume | null>(null);
@@ -36,6 +37,16 @@ export default function HomePage() {
 
       <div className="bg-white rounded-2xl shadow-lg p-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">我的履歷</h2>
+
+        {!isConfigured && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 flex items-start space-x-3">
+            <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+            <div className="text-yellow-800">
+              <p className="font-medium">Supabase未配置</p>
+              <p className="text-sm">請在Vercel環境變數中設置 VITE_SUPABASE_URL 和 VITE_SUPABASE_ANON_KEY</p>
+            </div>
+          </div>
+        )}
 
         {loading ? (
           <div className="flex items-center justify-center py-12">

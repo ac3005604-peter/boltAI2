@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Upload, Trash2, FileText, BookOpen, AlertCircle, CheckCircle } from 'lucide-react';
 import { getActivePortfolios, uploadResume, uploadPortfolio, deletePortfolio, Portfolio } from '../lib/api';
+import { isConfigured } from '../lib/supabase';
 import { getDocument } from 'pdfjs-dist';
 
 export default function AdminPage() {
@@ -128,6 +129,16 @@ export default function AdminPage() {
           在這裡可以上傳履歷表和作品集，或刪除現有的作品集。所有操作都需要輸入密碼。
         </p>
       </div>
+
+      {!isConfigured && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start space-x-3">
+          <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+          <div className="text-red-800">
+            <p className="font-medium">Supabase未配置</p>
+            <p className="text-sm">請在Vercel環境變數中設置 VITE_SUPABASE_URL 和 VITE_SUPABASE_ANON_KEY，後台功能才能使用</p>
+          </div>
+        </div>
+      )}
 
       {message && (
         <div
