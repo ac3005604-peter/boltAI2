@@ -48,12 +48,12 @@ export default function AdminPage() {
 
     setLoading(true);
     try {
-      const pageCount = await checkPDFPages(resumeFile);
-      if (pageCount > 1) {
-        showMessage('error', `履歷表超過一頁 (共 ${pageCount} 頁)，無法上傳`);
-        setLoading(false);
-        return;
-      }
+      //const pageCount = await checkPDFPages(resumeFile);
+      //if (pageCount > 1) {
+      //  showMessage('error', `履歷表超過一頁 (共 ${pageCount} 頁)，無法上傳`);
+      //  setLoading(false);
+      //  return;
+      //}
 
       const result = await uploadResume(resumeFile, resumePassword);
       if (result.success) {
