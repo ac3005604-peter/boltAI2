@@ -64,7 +64,7 @@ export default function AdminPage() {
         showMessage('error', result.error || '上傳失敗');
       }
     } catch (error) {
-      showMessage('error', '上傳過程發生錯誤，請檢查檔名或密碼');
+      showMessage('error', '上傳過程發生錯誤，請檢查檔名或密碼!');
     }
     setLoading(false);
   };
